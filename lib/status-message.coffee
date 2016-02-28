@@ -29,6 +29,7 @@ class StatusMessage
     if @statusBar
       @item.setAttribute('data-type', (message.type || 'info'))
       @item.innerHTML = message.text
+      @item.title = message.tooltip || ""
 
   onClick: (event ) ->
     @item.addEventListener('click', event)

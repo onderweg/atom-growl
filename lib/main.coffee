@@ -30,13 +30,15 @@ module.exports = AtomGrowl =
       @growl.forward(n).then(
         (result) =>
           @displayMessage({
-              text: "#{@growl.count} Growls"
-              type: "info"
+              text: "✓ Growl (#{@growl.count})"
+              type: "info",
+              tooltip: "Growl forward count: #{@growl.count}"
             }, 60 * 1000) if atom.config.get('atom-growl.showInStatusbar')
         (err) =>
           @displayMessage({
             text: "Growl error",
-            type: "error"
+            type: "error",
+            tooltip: err
           }, 60 * 1000)
         )
     throttled = _.throttle onMessage, 400

@@ -10,7 +10,7 @@
       'label': 'Atom Growl'
       'submenu': [
         {
-          'label': 'Push test message'
+          'label': 'Forward test message'
           'command': 'atom-growl:push-test-message'
         }
       ]
