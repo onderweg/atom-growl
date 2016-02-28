@@ -2,7 +2,7 @@
   "name": "atom-growl",
   "author": "Gerwert <info@onderweg.eu>",
   "main": "./lib/main",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Forward Atom notifications to Growl",
   "keywords": [
     "notifications",
