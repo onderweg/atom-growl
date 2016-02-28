@@ -1,0 +1,35 @@
+{
+  "name": "atom-growl",
+  "author": "Gerwert <info@onderweg.eu>",
+  "main": "./lib/main",
+  "version": "0.1.0",
+  "description": "Forward Atom notifications to Growl",
+  "keywords": [
+    "notification",
+    "growl",
+    "history"
+  ],
+  "activationCommands": {},
+  "repository": "https://github.com/onderweg/atom-growl",
+  "license": "MIT",
+  "engines": {
+    "atom": ">=1.5.0 <2.0.0"
+  },
+  "configSchema": {
+    "forwardToGrowl": {
+      "type": "boolean",
+      "default": true,
+      "description": "Enable forwarding of notifications to Growl"
+    },
+    "showInStatusbar": {
+      "type": "boolean",
+      "default": true,
+      "description": "Show Growl notification count in statusbar"
+    }
+  },
+  "dependencies": {
+    "atom-space-pen-views": "^2.2.0",
+    "growly": "^1.2.0",
+    "lodash": "^4.5.1"
+  }
+}

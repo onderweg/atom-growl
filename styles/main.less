@@ -1,0 +1,23 @@
+// The ui-variables file is provided by base themes provided by Atom.
+//
+// See https://github.com/atom/atom-dark-ui/blob/master/styles/ui-variables.less
+// for a full listing of what's available.
+@import "ui-variables";
+@import "octicon-mixins";
+
+status-bar {
+
+  [data-type='success'] {
+    color: @text-color-success;
+  }
+  [data-type='info'] {
+    color: @text-color-info;
+  }
+  [data-type='warning'] {
+    color: @text-color-warning;
+  }
+  [data-type='error'] {
+    color: @text-color-error;
+    .octicon('alert')
+  }
+}
