@@ -2,6 +2,8 @@
 
 Atom Growl is notification forwarder and history viewer.
 
+![Screenshot](https://raw.githubusercontent.com/onderweg/atom-growl/master/resources/screenshot.png)
+
 - Forwards all Atom notifications to Growl.
 - With the `show history` command, you get a list of past Atom notifications.
 
