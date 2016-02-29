@@ -19,10 +19,11 @@
     "atom": ">=1.5.0 <2.0.0"
   },
   "configSchema": {
-    "forwardToGrowl": {
-      "type": "boolean",
-      "default": true,
-      "description": "Enable forwarding of notifications to Growl"
+    "enabledTypes": {
+      "type": "string",
+      "default": "info, success, warning, error",
+      "title": "Enable forwarding for these notification types",
+      "description": "Possible values: `info`, `success`, `warning`, `error` (comma separated)"
     },
     "showInStatusbar": {
       "type": "boolean",

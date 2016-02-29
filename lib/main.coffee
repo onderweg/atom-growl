@@ -7,6 +7,7 @@ Growl = require "./growl.js"
 module.exports = AtomGrowl =
 
   activate: (state) ->
+    @growl ?= new Growl();
 
     # Events subscribed to in atom's system can be easily cleaned up with a CompositeDisposable
     @subscriptions = new CompositeDisposable
@@ -19,38 +20,39 @@ module.exports = AtomGrowl =
         @historyView.history = atom.notifications.getNotifications().reverse()
         @historyView.show()
 
+    @subscriptions.add atom.notifications.onDidAddNotification (n) => @onMessage(n, @);
+
     # Observe config values
     atom.config.observe 'atom-growl.showInStatusbar', (newValue) =>
       @statusMessage?.remove() if newValue == false
 
-    @growl ?= new Growl();
-
-    onMessage = (n) =>
-      return unless atom.config.get('atom-growl.forwardToGrowl')
-      @growl.forward(n).then(
-        (result) =>
-          @displayMessage({
-              text: "✓ Growl (#{@growl.count})"
-              type: "info",
-              tooltip: "Growl forward count: #{@growl.count}"
-            }, 60 * 1000) if atom.config.get('atom-growl.showInStatusbar')
-        (err) =>
-          @displayMessage({
-            text: "Growl error",
-            type: "error",
-            tooltip: err
-          }, 60 * 1000)
-        )
-    throttled = _.throttle onMessage, 400
-
-    atom.notifications.onDidAddNotification throttled;
-
   deactivate: ->
     @subscriptions.dispose()
 
+  onMessage: (n, self) =>
+    return false if atom.config.get('atom-growl.enabledTypes')
+      .replace(/\s/g, '')
+      .split(',')
+      .indexOf(n.type) == -1
+
+    self.growl.forward(n).then(
+      (result) =>
+        self.displayMessage({
+            text: "✓ Growl (#{self.growl.count})"
+            type: "info",
+            tooltip: "Growl forward count: #{self.growl.count}"
+          }, 60 * 1000) if atom.config.get('atom-growl.showInStatusbar')
+      (err) =>
+        self.displayMessage({
+          text: "Growl error",
+          type: "error",
+          tooltip: err
+        }, 60 * 1000)
+    )
+
   testForward: ->
     atom.notifications.addInfo("Growl test title", {
-      detail: "Growl test @ " + new Date(),
+      detail: "Growl test @ #{new Date()}"
     });
 
   displayMessage: (message, timeout) ->
