@@ -1,9 +1,8 @@
 GrowlStub = require './fixtures/growl-stub.js'
 
-growl = new GrowlStub
-
 describe 'The Growl API interface', ->
 
+  growl = {}
   disposables = []
 
   beforeEach ->
@@ -16,18 +15,21 @@ describe 'The Growl API interface', ->
     for disposable in disposables
       disposable.dispose()
 
-  it 'should forward to Growl', (done) ->
+  it 'should forward to Growl',  ->
+      growlResult = null
+      waitsForPromise ->
+          growl.forward({
+              message: 'This is a test message',
+              type: 'info'
+          }).then(
+            (result) =>
+              growlResult = result
+            (err) =>
+              throw err
+          )
 
-    growl.forward({
-        message: 'This is a test message',
-        type: 'info'
-    }).then(
-      (result) =>
+      runs ->
         # Promises resolves?
-        expect(result).toBe true
+        expect(growlResult).toBe true
         # Count incremented?
         expect(growl.count).toBe 1
-        done()
-      (err) =>
-        throw err
-    )

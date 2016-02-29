@@ -9,6 +9,9 @@
     "growl",
     "history"
   ],
+  "scripts": {
+      "prepublish": "apm test"
+  },
   "activationCommands": {},
   "repository": "https://github.com/onderweg/atom-growl",
   "license": "MIT",
