@@ -15,7 +15,6 @@ class StatusMessage
       @item.classList.add('inline-block')
       @item.classList.add('text-' + (message.type || 'info'))
       @set(message)
-
       @tile = @statusBar.addRightTile({@item})
 
   # Public: Removes the message from the status bar.
@@ -31,5 +30,5 @@ class StatusMessage
       @item.innerHTML = message.text
       @item.title = message.tooltip || ""
 
-  onClick: (event ) ->
+  onClick: (event) ->
     @item.addEventListener('click', event)
