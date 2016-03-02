@@ -1,5 +1,6 @@
 {CompositeDisposable} = require 'atom'
 _ = require "lodash"
+shell = require('shell');
 HistoryView = require "./history-view"
 StatusMessage = require './status-message'
 Growl = require "./growl.js"
@@ -20,6 +21,8 @@ module.exports = AtomGrowl =
         @historyView.history = atom.notifications.getNotifications().reverse()
         @historyView.show()
 
+    # @TODO: Figure out why @ is empty when calling @onmessage this way.
+    # as a workaround: pass @ as argument
     @subscriptions.add atom.notifications.onDidAddNotification (n) => @onMessage(n, @);
 
     # Observe config values
@@ -35,7 +38,13 @@ module.exports = AtomGrowl =
       .split(',')
       .indexOf(n.type) == -1
 
-    self.growl.forward(n).then(
+    opts = {};
+    if n.options.buttons and n.options.buttons.length > 0
+      opts = {
+        'onClick': n.options.buttons[0].onDidClick
+      }
+
+    self.growl.forward(n, opts).then(
       (result) =>
         self.displayMessage({
             text: "✓ Growl (#{self.growl.count})"
@@ -52,8 +61,13 @@ module.exports = AtomGrowl =
 
   testForward: ->
     atom.notifications.addInfo("Growl test title", {
-      detail: "Growl test @ #{new Date()}"
-    });
+      description: "Growl test @ #{new Date()}",
+      buttons: [{
+        text: 'More'
+        className: 'btn-one'
+        onDidClick: -> shell.openExternal("https://www.atom.io");
+      }]
+    })
 
   displayMessage: (message, timeout) ->
     clearTimeout(@timeout) if @timeout?

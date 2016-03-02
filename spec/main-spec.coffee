@@ -28,6 +28,7 @@ describe "Atom Growl", ->
       expect(result).toBe false
       atom.config.set "atom-growl.enabledTypes", "error, info"
       result = mainModule.onMessage({
-          type: 'info'
+          type: 'info',
+          options: {}
         }, mainModule)
       expect(result).not.toBe false
