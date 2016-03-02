@@ -1,14 +1,15 @@
 {CompositeDisposable} = require 'atom'
 _ = require "lodash"
 shell = require('shell');
+growly = require('growly');
 HistoryView = require "./history-view"
 StatusMessage = require './status-message'
-Growl = require "./growl.js"
+GrowlForwarder = require "./growl-forwarder.js"
 
 module.exports = AtomGrowl =
 
   activate: (state) ->
-    @growl ?= new Growl();
+    @growl ?= new GrowlForwarder(growly);
 
     # Events subscribed to in atom's system can be easily cleaned up with a CompositeDisposable
     @subscriptions = new CompositeDisposable

@@ -1,15 +1,16 @@
-GrowlStub = require './fixtures/growl-stub.js'
+GrowlyStub = require './fixtures/growly-stub.js'
+GrowlForwarder = require "../lib/growl-forwarder.js"
 
 describe 'The Growl API interface', ->
 
-  growl = {}
+  growly = new GrowlyStub()
+  forwarder = new GrowlForwarder(growly)
+
   disposables = []
 
   beforeEach ->
       waitsForPromise ->
         atom.packages.activatePackage('atom-growl')
-
-      growl = new GrowlStub
 
   afterEach ->
     for disposable in disposables
@@ -17,11 +18,17 @@ describe 'The Growl API interface', ->
 
   it 'should forward to Growl',  ->
       growlResult = null
+
+      spyOn(growly, 'register').andCallThrough();
+      spyOn(growly, 'notify').andCallThrough();
+
+      notification = {
+          message: 'This is a test message',
+          type: 'info',
+          options: {}
+      };
       waitsForPromise ->
-          growl.forward({
-              message: 'This is a test message',
-              type: 'info'
-          }).then(
+          forwarder.forward(notification).then(
             (result) =>
               growlResult = result
             (err) =>
@@ -32,4 +39,10 @@ describe 'The Growl API interface', ->
         # Promises resolves?
         expect(growlResult).toBe true
         # Count incremented?
-        expect(growl.count).toBe 1
+        expect(forwarder.count).toBe 1
+        # Growly calls
+        expect(growly.register).toHaveBeenCalled();
+        expect(growly.notify.mostRecentCall.args[1]).toEqual({
+          title: notification.message,
+          label: notification.type
+        });
