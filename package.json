@@ -4,7 +4,7 @@
     "name": "Onderweg"
   },
   "main": "./lib/main",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Forward Atom notifications to Growl",
   "keywords": [
     "notifications",
