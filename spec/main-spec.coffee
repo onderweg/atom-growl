@@ -5,6 +5,11 @@ describe "Atom Growl", ->
 
   mainModule  = null
 
+  infoMessage = {
+      type: 'info',
+      options: {}
+  }
+
   beforeEach ->
     waitsForPromise ->
       atom.packages.activatePackage('atom-growl').then (pkg) =>
@@ -22,13 +27,8 @@ describe "Atom Growl", ->
 
     it "observes enabledTypes config value and takes action", ->
       atom.config.set "atom-growl.enabledTypes", "error, warning"
-      result = mainModule.onMessage({
-          type: 'info'
-        }, mainModule)
+      result = mainModule.onMessage(infoMessage, mainModule)
       expect(result).toBe false
       atom.config.set "atom-growl.enabledTypes", "error, info"
-      result = mainModule.onMessage({
-          type: 'info',
-          options: {}
-        }, mainModule)
+      result = mainModule.onMessage(infoMessage, mainModule)
       expect(result).not.toBe false

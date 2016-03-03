@@ -31,6 +31,11 @@
       "type": "boolean",
       "default": true,
       "description": "Show Growl notification count in statusbar"
+    },
+    "ignoreWhenFocused": {
+      "type": "boolean",
+      "default": false,
+      "description": "Don't forward to Growl when focused"
     }
   },
   "dependencies": {
