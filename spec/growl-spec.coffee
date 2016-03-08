@@ -42,7 +42,4 @@ describe 'The Growl API interface', ->
         expect(forwarder.count).toBe 1
         # Growly calls
         expect(growly.register).toHaveBeenCalled();
-        expect(growly.notify.mostRecentCall.args[1]).toEqual({
-          title: notification.message,
-          label: notification.type
-        });
+        expect(growly.notify.mostRecentCall.args[1].title).toEqual(notification.message);
