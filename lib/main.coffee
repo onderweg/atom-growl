@@ -42,7 +42,7 @@ module.exports = AtomGrowl =
     if atom.getCurrentWindow().isFocused() and \
     atom.config.get('atom-growl.ignoreWhenFocused')
       return false
-      
+
     opts = {};
     if n.options.buttons and n.options.buttons.length > 0
       opts = {

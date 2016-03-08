@@ -40,7 +40,7 @@
   },
   "dependencies": {
     "atom-space-pen-views": "^2.2.0",
-    "growly": "^1.2.0",
+    "growly": "https://github.com/onderweg/growly/archive/0.1.0.tar.gz",
     "lodash": "^4.5.1"
   }
 }
