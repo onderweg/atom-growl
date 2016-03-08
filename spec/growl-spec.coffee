@@ -43,3 +43,4 @@ describe 'The Growl API interface', ->
         # Growly calls
         expect(growly.register).toHaveBeenCalled();
         expect(growly.notify.mostRecentCall.args[1].title).toEqual(notification.message);
+        expect(growly.notify.mostRecentCall.args[1].label).toEqual(notification.type);

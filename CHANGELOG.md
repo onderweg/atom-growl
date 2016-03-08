@@ -6,3 +6,4 @@
 
 * Support for Atom notification.description
 * Support for Growl notification click interaction
+* Usage of Coalescing-ID in GNTP calls to prevent duplicate notifications in Growl.

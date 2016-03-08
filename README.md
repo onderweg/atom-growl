@@ -11,7 +11,7 @@ With the `show history` command, you get a list of past Atom notifications.
 
 ## TODO
 
-- [ ] Handle situation where multiple Atom windows show same notification simultaneously.
+- [X] Handle situation where multiple Atom windows show same notification simultaneously.
 
 ## Credits
 
