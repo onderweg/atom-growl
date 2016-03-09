@@ -12,8 +12,7 @@ class StatusMessage
     @statusBar = document.querySelector('status-bar')
     if @statusBar
       @item = document.createElement('div')
-      @item.classList.add('inline-block')
-      @item.classList.add('text-' + (message.type || 'info'))
+      @item.classList.add('inline-block')      
       @set(message)
       @tile = @statusBar.addRightTile({@item})
 

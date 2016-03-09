@@ -52,7 +52,7 @@ module.exports = AtomGrowl =
     self.growl.forward(n, opts).then(
       (result) =>
         self.displayMessage({
-            text: "✓ Growl (#{self.growl.count})"
+            text: "<span class='icon icon-megaphone'></span> <span>Growl (#{self.growl.count})</span>",
             type: "info",
             tooltip: "Growl forward count: #{self.growl.count}"
           }, 60 * 1000) if atom.config.get('atom-growl.showInStatusbar')
